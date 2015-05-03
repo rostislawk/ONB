@@ -69,10 +69,11 @@ void test_shift()
 void test_generation_b()
 {
 	size_t b_size = bits_in_number(field_size);
+	size_t w_size = size_in_words(field_size);
 	word *b = (word *)malloc(b_size * sizeof(word));
 	printf("TEST GENERATION B\n");
 	generate_b(b, field_size);
-	printBinaryRepresentation2(b, test_arr_size, field_size + 1);
+	printBinaryRepresentation2(b, w_size, field_size + 1);
 	
 	free(b);
 }
