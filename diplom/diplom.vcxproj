@@ -87,9 +87,15 @@
   <ItemGroup>
     <ClCompile Include="gf2_opt.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="onb.c" />
+    <ClCompile Include="tests.c" />
+    <ClCompile Include="utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gf2_opt.h" />
+    <ClInclude Include="onb.h" />
+    <ClInclude Include="tests.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
