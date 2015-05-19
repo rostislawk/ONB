@@ -76,6 +76,56 @@ void generateONB2_A(word *a, size_t m)
 	free(pi_inv);
 }
 
+void generateONB3_A(word *a, size_t m)
+{
+	size_t p = 2 * m + 1;
+	size_t ksigma, kmu;
+	word *pi = (word *)malloc(p * sizeof(word));
+	word *pi_inv = (word *)malloc(p * sizeof(word));
+	word *sigma = (word *)malloc((p - 1) * sizeof(word));
+	word *mu = (word *)malloc((p - 1) * sizeof(word));
+	size_t index;
+	pi[0] = 1;
+	pi[p-1] = 1;
+	pi_inv[0] = WORD_MAX;
+	pi_inv[1] = 0;
+	for (index = 1; index < p - 1; ++index) {
+		pi[index] = (2 * pi[index - 1]) % p;
+		pi_inv[pi[index]] = index;
+	}
+	sigma[0] = 1;
+	mu[0] = WORD_MAX;
+	for (index = 1; index < p; ++index) {
+		if (index > 0) {
+			ksigma = pi_inv[index - 1];
+			if (ksigma != WORD_MAX && ksigma < m) {
+				sigma[ksigma] = pi_inv[1+pi[ksigma]] % m;
+			}
+			else if (ksigma < m) {
+				sigma[ksigma] = WORD_MAX;
+			}
+		}
+		if (index < p - 1) {
+			kmu = pi_inv[index + 1];
+			if (kmu != WORD_MAX && kmu < m) {
+				mu[kmu] = pi_inv[-1+pi[kmu]] % m;
+			}
+			else if (kmu < m) {
+				mu[kmu] = WORD_MAX;
+			}
+		}
+	}
+	a[0] = sigma[0];
+	for (index = 1; index < m; ++index) {
+		a[index * 2 - 1] = sigma[index];
+		a[index * 2] = mu[index];
+	}
+	free(sigma);
+	free(mu);
+	free(pi);
+	free(pi_inv);
+}
+
 void mul(word *res, word *a, word *b, word *A, size_t n, size_t m)
 {
 	size_t step = 0;

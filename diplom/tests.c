@@ -20,14 +20,14 @@ void test_shift()
 	free(a);
 }
 
-void test_generation_b()
+void test_generation_b(size_t m)
 {
-	size_t b_size = bits_in_number(field_size);
-	size_t w_size = size_in_words(field_size);
+	size_t b_size = bits_in_number(m);
+	size_t w_size = size_in_words(m);
 	word *b = (word *)malloc(b_size * sizeof(word));
 	printf("TEST GENERATION B\n");
-	generate_b(b, field_size);
-	printBinaryRepresentation2(b, w_size, field_size + 1);
+	generate_b(b, m);
+	printBinaryRepresentation2(b, w_size, m + 1);
 	
 	free(b);
 }
