@@ -3,7 +3,7 @@
 
 int main()
 {	
-	//test_generationONB2_b();
+	test_generation_b();
 	test_generationONB2_A();
 	//test_mulONB2();
 	//test_invONB2();

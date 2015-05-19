@@ -20,13 +20,13 @@ void test_shift()
 	free(a);
 }
 
-void test_generationONB2_b()
+void test_generation_b()
 {
 	size_t b_size = bits_in_number(field_size);
 	size_t w_size = size_in_words(field_size);
 	word *b = (word *)malloc(b_size * sizeof(word));
 	printf("TEST GENERATION B\n");
-	generateONB2_b(b, field_size);
+	generate_b(b, field_size);
 	printBinaryRepresentation2(b, w_size, field_size + 1);
 	
 	free(b);

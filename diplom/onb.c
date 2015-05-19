@@ -8,7 +8,7 @@ void sqr(word *res, word *a, size_t n, size_t m)
 	shiftRight(res, n, m, 1);
 }
 
-void generateONB2_b(word *b, size_t m)
+void generate_b(word *b, size_t m)
 {
 	size_t index = 0, k, bit_size = bits_in_number(m);
 	word M, N;
