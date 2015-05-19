@@ -2,11 +2,11 @@
 #include "onb.h"
 #include "utils.h"
 
-static const size_t field_size = 14;
 static const size_t test_arr_size = 3;
 
 void test_shift()
 {
+	size_t field_size = 14;
 	word *a = (word *)malloc(test_arr_size * sizeof(word));
 	printf("TEST SHIFT\n");
 	a[0] = 15;
@@ -32,61 +32,62 @@ void test_generation_b(size_t m)
 	free(b);
 }
 
-void test_generationONB2_A()
+void test_generationONB2_A(size_t m)
 {
-	word *a = (word *)malloc((2 * field_size - 1) * sizeof(word));
+	word *a = (word *)malloc((2 * m - 1) * sizeof(word));
 	size_t index;
 	uint64 start, overhead, freq1, freq2;
 	start = RDTSC();
     overhead = RDTSC() - start;
 	for (index = 0; index < 1000; ++index) {
-		generateONB2_A(a, field_size);
+		generateONB2_A(a, m);
 	}
     freq1 = RDTSC() - start - overhead;	
-	printf("Processor ticks for multiplication in the field with m = %u equals = %u\n", field_size, freq1/1000);
-	for (index = 0; index < 2 * field_size - 1; ++index) {
+	printf("Processor ticks for multiplication in the field with m = %u equals = %u\n", m, freq1/1000);
+	for (index = 0; index < 2 * m - 1; ++index) {
 		printf("%u -> %u\n", (index + 1) / 2, a[index]);
 	}
 	free(a);
 }
 
-void test_mulONB2()
+void test_mulONB2(size_t m)
 {
-	size_t field_size_word_length = size_in_words(field_size);
-	word *A = (word *)malloc((2 * field_size - 1) * sizeof(word));
+	size_t field_size_word_length = size_in_words(m);
+	word *A = (word *)malloc((2 * m - 1) * sizeof(word));
 	word *a = (word *)malloc(field_size_word_length * sizeof(word));
 	word *b = (word *)malloc(field_size_word_length * sizeof(word));
 	word *res = (word *)malloc(field_size_word_length * 2 * sizeof(word));
 	size_t index;
 	uint64 start, overhead, freq1, freq2;
-	generateONB2_A(A, field_size);
+	generateONB2_A(A, m);
 	wordSetZero(a, field_size_word_length);
 	wordSetZero(b, field_size_word_length);
 	a[0] = 1;
 	b[0] = 1;
-	normalize(a, field_size_word_length, field_size);
-	printBinaryRepresentation2(a, field_size_word_length, field_size);
+	normalize(a, field_size_word_length, m);
+	printBinaryRepresentation2(a, field_size_word_length, m);
 	printf("\n");
-	normalize(b, field_size_word_length, field_size);
-	printBinaryRepresentation2(b, field_size_word_length, field_size);
+	normalize(b, field_size_word_length, m);
+	printBinaryRepresentation2(b, field_size_word_length, m);
 	printf("\n");
 	start = RDTSC();
     overhead = RDTSC() - start;
 	for (index = 0; index < 1000; ++index) {
-        mul(res, a, b, A, field_size_word_length, field_size);
+        mul(res, a, b, A, field_size_word_length, m);
 	}
     freq1 = RDTSC() - start - overhead;	
-	printBinaryRepresentation2(res, field_size_word_length, field_size);
+	printBinaryRepresentation2(res, field_size_word_length, m);
 	printf("\n");
-	printf("Processor ticks for multiplication in the field with m = %u equals = %u\n", field_size, freq1/1000);
+	printf("Processor ticks for multiplication in the field with m = %u equals = %u\n", m, freq1/1000);
 	free(A);
 	free(a);
 	free(b);
 	free(res);
 }
 
-void test_invONB2()
+void test_invONB2(size_t m)
 {
+	size_t field_size = m;
 	size_t field_size_word_length = size_in_words(field_size);
 	word *A = (word *)malloc((2 * field_size - 1) * sizeof(word));
 	word *b = (word *)malloc(field_size_word_length * sizeof(word));
@@ -116,8 +117,9 @@ void test_invONB2()
 	free(res);
 }
 
-void test_divONB2()
+void test_divONB2(size_t m)
 {
+	size_t field_size = m;
 	size_t field_size_word_length = size_in_words(field_size);
 	word *A = (word *)malloc((2 * field_size - 1) * sizeof(word));
 	word *a = (word *)malloc(field_size_word_length * sizeof(word));
