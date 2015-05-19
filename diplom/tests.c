@@ -50,6 +50,24 @@ void test_generationONB2_A(size_t m)
 	free(a);
 }
 
+void test_generationONB3_A(size_t m)
+{
+	word *a = (word *)malloc((2 * m - 1) * sizeof(word));
+	size_t index;
+	uint64 start, overhead, freq1, freq2;
+	start = RDTSC();
+    overhead = RDTSC() - start;
+	for (index = 0; index < 1000; ++index) {
+		generateONB3_A(a, m);
+	}
+    freq1 = RDTSC() - start - overhead;	
+	printf("Processor ticks for multiplication in the field with m = %u equals = %u\n", m, freq1/1000);
+	for (index = 0; index < 2 * m - 1; ++index) {
+		printf("%u -> %u\n", (index + 1) / 2, a[index]);
+	}
+	free(a);
+}
+
 void test_mulONB2(size_t m)
 {
 	size_t field_size_word_length = size_in_words(m);

@@ -87,33 +87,29 @@ void generateONB3_A(word *a, size_t m)
 	size_t index;
 	pi[0] = 1;
 	pi[p-1] = 1;
-	pi_inv[0] = WORD_MAX;
+	for (index = 0; index < p; ++index) {
+		pi_inv[index] = WORD_MAX;
+	}
 	pi_inv[1] = 0;
-	for (index = 1; index < p - 1; ++index) {
+	for (index = 1; index < m; ++index) {
 		pi[index] = (2 * pi[index - 1]) % p;
+		pi[index + m];
 		pi_inv[pi[index]] = index;
 	}
 	sigma[0] = 1;
 	mu[0] = WORD_MAX;
-	for (index = 1; index < p; ++index) {
-		if (index > 0) {
-			ksigma = pi_inv[index - 1];
-			if (ksigma != WORD_MAX && ksigma < m) {
-				sigma[ksigma] = pi_inv[1+pi[ksigma]] % m;
-			}
-			else if (ksigma < m) {
-				sigma[ksigma] = WORD_MAX;
-			}
+	
+	for (index = 1; index < m; ++index) {
+		ksigma = pi[index] + 1;
+		if (pi_inv[ksigma] == WORD_MAX) {
+			ksigma = p - pi[index] - 1;
 		}
-		if (index < p - 1) {
-			kmu = pi_inv[index + 1];
-			if (kmu != WORD_MAX && kmu < m) {
-				mu[kmu] = pi_inv[-1+pi[kmu]] % m;
-			}
-			else if (kmu < m) {
-				mu[kmu] = WORD_MAX;
-			}
+		sigma[index] = pi_inv[ksigma];
+		kmu = pi[index] - 1;
+		if (pi_inv[kmu] == WORD_MAX) {
+			kmu = p - pi[index] + 1;
 		}
+		mu[index] = pi_inv[kmu];
 	}
 	a[0] = sigma[0];
 	for (index = 1; index < m; ++index) {
