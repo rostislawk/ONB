@@ -44,6 +44,21 @@ void test_generation_pi(size_t m)
 	printf("\n");
 }
 
+void test_apply_pi()
+{
+	size_t index = 0, m = 5;
+	word *pi = (word *)malloc(m * sizeof(word));
+	size_t word_size = size_in_words(m);
+	word *a = (word *)malloc(word_size * sizeof(word));
+	word *b = (word *)malloc(word_size * sizeof(word));
+	a[0] = 0x19;
+	printf("TEST APLYING PI\n");
+	generate_pi(pi, m);
+	applyPi(a, b, pi, m);
+	printBinaryRepresentation2(a, word_size, m);
+	printBinaryRepresentation2(b, word_size, m);
+}
+
 void test_generationONB2_A(size_t m)
 {
 	word *a = (word *)malloc((2 * m - 1) * sizeof(word));

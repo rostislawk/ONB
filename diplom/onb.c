@@ -32,10 +32,23 @@ void generate_pi(word *pi, size_t m)
 	size_t p = 2 * m + 1;
 	pi[0] = 1;
 	for (index = 1; index < m; ++index) {
-		pi[index] = (pi[index-1] * 2) % p; 
-		pi[index - 1] %= m;
+		pi[index] = (pi[index-1] * 2) % p;
+		if (pi[index] > m) {
+			pi[index] = p - pi[index];
+		}
+		pi[index - 1] -= 1;
 	}
-	pi[m-1] %= m;
+	pi[m - 1] -= 1;
+}
+
+void applyPi(word *a, word *b, word *pi, size_t m)
+{
+	size_t index = 0;
+	BOOL bit = FALSE;
+	for (index = 0; index < m; ++index) {
+		bit = wordGetBits(a, index, 1) == 1 ? TRUE : FALSE;
+		wordSetBit(b, pi[index], bit); 
+	}
 }
 
 void generateONB2_A(word *a, size_t m)
