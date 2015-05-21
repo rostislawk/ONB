@@ -160,6 +160,17 @@ void test_divONB2(size_t m)
 
 void test_reverse()
 {
-	word rev = reverseWord(0x96FAED11);
-	printf("%X", rev);
+	word *a = malloc(sizeof(word) * 4);
+	word *b = malloc(sizeof(word) * 4);
+	wordSetZero(b, 4);
+	a[0] = 0x96FAED11;
+	a[1] = 0x00000000;
+	a[2] = 0xCCCCCCCC;
+	a[3] = 0xF0F0F0F0;
+	reverse(a, b, 4);
+	printBinaryRepresentation2(a, 4, 4 * B_PER_W);
+	printBinaryRepresentation2(b, 4, 4 * B_PER_W);
+
+	free(a);
+	free(b);
 }

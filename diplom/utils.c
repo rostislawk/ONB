@@ -78,14 +78,6 @@ size_t size_in_words(size_t number)
 	return rest == 0 ? size_in_words : size_in_words + 1;
 };
 
-unsigned char reverse(unsigned char b)
-{
-   b = (b & 0xF0) >> 4 | (b & 0x0F) << 4;
-   b = (b & 0xCC) >> 2 | (b & 0x33) << 2;
-   b = (b & 0xAA) >> 1 | (b & 0x55) << 1;
-   return b;
-}
-
 word reverseWord(word a)
 {
 	a = (a & 0xFFFF0000) >> 16 | (a & 0x0000FFFF) << 16;
@@ -94,4 +86,13 @@ word reverseWord(word a)
 	a = (a & 0xCCCCCCCC) >> 2 | (a & 0x33333333) << 2;
 	a = (a & 0xAAAAAAAA) >> 1 | (a & 0x55555555) << 1;
 	return a;
+}
+
+void reverse(word *a, word *b, size_t n)
+{
+	size_t index = 0;
+	for (index = 0; index < n / 2; ++index) {
+		b[index] = reverseWord(a[n-index-1]);
+		b[n-index-1] = reverseWord(a[index]);
+	}
 }
