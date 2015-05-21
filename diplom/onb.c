@@ -69,15 +69,10 @@ void applyPi(word *a, word *b, word *pi, size_t m)
 	}
 }
 
-//word apply_F_for_word(word a)
-//{
-//
-//}
-//
-//void applyF(word *a, word *mem, size_t n)
-//{
-//	wordC
-//}
+void applyF(word *a, word *mem, size_t n)
+{
+	wordC
+}
 
 void generateONB2_A(word *a, size_t m)
 {
