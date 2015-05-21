@@ -96,3 +96,4 @@ void reverse(word *a, word *b, size_t n)
 		b[n-index-1] = reverseWord(a[index]);
 	}
 }
+

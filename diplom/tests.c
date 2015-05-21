@@ -32,6 +32,18 @@ void test_generation_b(size_t m)
 	free(b);
 }
 
+void test_generation_pi(size_t m)
+{
+	size_t index = 0;
+	word *pi = (word *)malloc(m * sizeof(word));
+	printf("TEST GENERATION PI\n");
+	generate_pi(pi, m);
+	for (index = 0; index < m; ++index) {
+		printf("%d ", pi[index]);
+	}
+	printf("\n");
+}
+
 void test_generationONB2_A(size_t m)
 {
 	word *a = (word *)malloc((2 * m - 1) * sizeof(word));

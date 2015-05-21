@@ -26,6 +26,18 @@ void generate_b(word *b, size_t m)
 	normalize(b, bit_size, m + 1);
 }
 
+void generate_pi(word *pi, size_t m)
+{
+	size_t index = 0;
+	size_t p = 2 * m + 1;
+	pi[0] = 1;
+	for (index = 1; index < m; ++index) {
+		pi[index] = (pi[index-1] * 2) % p; 
+		pi[index - 1] %= m;
+	}
+	pi[m-1] %= m;
+}
+
 void generateONB2_A(word *a, size_t m)
 {
 	size_t p = 2 * m + 1;
@@ -169,4 +181,9 @@ void div_onb(word *res, word *a, word *b, word *A, size_t n, size_t m)
 	inv(b_inv, b, A, n, m);
 	mul(res, a, b_inv, A, n, m);
 	free(b_inv);
+}
+
+void fromONB2ToStandard(word *onb2, word *st, word *b, word *pi, size_t m)
+{
+	 
 }
