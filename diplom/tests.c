@@ -59,6 +59,36 @@ void test_apply_pi()
 	printBinaryRepresentation2(b, word_size, m);
 }
 
+void test_apply_f()
+{
+	word *a = malloc(sizeof(word) * 4);
+	word *b = malloc(sizeof(word) * 4);
+	wordSetZero(b, 4);
+	a[0] = 0x96FAED11;
+	a[1] = 0x00000000;
+	a[2] = 0xCCCCCCCC;
+	a[3] = 0xF0F0F0F0;
+	printBinaryRepresentation2(a, 4, 4 * B_PER_W);
+	applyF(a, b, 4);
+	printBinaryRepresentation2(a, 4, 4 * B_PER_W);
+
+	free(a);
+	free(b);
+}
+
+void test_apply_f1()
+{
+	word *a = malloc(sizeof(word));
+	word *b = malloc(sizeof(word));
+	a[0] = 0x17;
+	b[0] = 0;
+	printBinaryRepresentation2(a, 1, B_PER_W);
+	applyF(a, b, 1);
+	printBinaryRepresentation2(a, 1, B_PER_W);
+	free(a);
+	free(b);
+}
+
 void test_generationONB2_A(size_t m)
 {
 	word *a = (word *)malloc((2 * m - 1) * sizeof(word));

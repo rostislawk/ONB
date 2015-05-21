@@ -88,6 +88,14 @@ size_t size_in_words(size_t number)
 	return rest == 0 ? size_in_words : size_in_words + 1;
 };
 
+octet reverseOctet(octet a)
+{
+	a = (a & 0xFF00) >> 4 | (a & 0x00FF) << 4;
+	a = (a & 0xCCCC) >> 2 | (a & 0x3333) << 2;
+	a = (a & 0xAAAA) >> 1 | (a & 0x5555) << 1;
+	return a;
+}
+
 word reverseWord(word a)
 {
 	a = (a & 0xFFFF0000) >> 16 | (a & 0x0000FFFF) << 16;

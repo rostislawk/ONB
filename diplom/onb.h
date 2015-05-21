@@ -12,6 +12,7 @@
 void generate_b(word *b, size_t m);
 void generate_pi(word *pi, size_t m);
 void applyPi(word *a, word *b, word *pi, size_t m);
+void applyF(word *a, word *mem, size_t n);
 
 void generateONB2_A(word *a, size_t m);
 void generateONB3_A(word *a, size_t m);

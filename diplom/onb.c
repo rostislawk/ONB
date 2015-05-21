@@ -69,9 +69,55 @@ void applyPi(word *a, word *b, word *pi, size_t m)
 	}
 }
 
+void applyFToWord(word *a)
+{
+	octet *b = (octet *)a;
+	octet *c = malloc(2 * sizeof(octet));
+	octet carry = 0;
+	//apply f to 4 octets
+	c[0] = reverseOctet(b[3]);
+	c[1] = reverseOctet(b[2]);
+	c[0] << 1;
+	carry = c[1] & 0x80;
+	c[1] << 1;
+	c[0] += carry;
+	b[0] ^= c[0];
+	b[1] ^= c[1];
+	
+	//apply f to 2,2 octets
+	c[0] = reverseOctet(b[1]);
+	c[0] << 1;
+	b[0] ^= c[0];
+
+	c[1] ^= reverseOctet(b[3]);
+	c[1] << 1;
+	b[3] ^= c[1];
+
+	//apply f to 1,1,1,1 octets
+	b[0] = f[b[0]];
+	b[1] = f[b[1]];
+	b[2] = f[b[2]];
+	b[3] = f[b[3]];
+
+	free(c);
+}
+
 void applyF(word *a, word *mem, size_t n)
 {
-	wordC
+	size_t index = 0, m = n / 2;
+	if (m > 1) {
+		wordCopy(mem, a + m, m);
+		reverse(mem, mem, m);
+		wordShHi(mem, m, 1);
+		for (index = 0; index < m; ++index) {
+			a[index] ^= mem[index];
+		}
+		applyF(a, mem, m);
+		applyF(a + m, mem, m);
+	}
+	else {
+		applyFToWord(a);	
+	}
 }
 
 void generateONB2_A(word *a, size_t m)

@@ -3,7 +3,8 @@
 
 int main()
 {	
-	countTableF();
+	//countTableF();
+	test_apply_f1();
 	//test_generation_b(5);
 	//test_generation_pi(173);
 	//test_apply_pi();
