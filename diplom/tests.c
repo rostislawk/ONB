@@ -201,3 +201,43 @@ void test_reverse()
 	free(a);
 	free(b);
 }
+
+void countTableF()
+{
+	octet x, f;
+	octet x1, x2, x3, x4, x5, x6, x7, x8;
+	octet f1, f2, f3, f4, f5, f6, f7, f8;
+	size_t index = 1;
+	for (x1 = 0; x1 < 2; ++x1) {
+		for (x2 = 0; x2 < 2; ++x2) {
+			for (x3 = 0; x3 < 2; ++x3) {
+				for (x4 = 0; x4 < 2; ++x4) {
+					for (x5 = 0; x5 < 2; ++x5) {
+						for (x6 = 0; x6 < 2; ++x6) {
+							for (x7 = 0; x7 < 2; ++x7) {
+								for (x8 = 0; x8 < 2; ++x8) {
+									f1 = x1 ^ x3 ^ x5 ^ x7;
+									f2 = x2 ^ x6;
+									f3 = x3 ^ x5;
+									f4 = x4;
+									f5 = x5 ^ x7;
+									f6 = x6;
+									f7 = x7;
+									f8 = x8;
+									x = x1 * 0x80 + x2 * 0x40 + x3 * 0x20 + x4 * 0x10 + x5 * 0x08 + x6 * 0x04 + x7 * 0x02 + x8;
+									f = f1 * 0x80 + f2 * 0x40 + f3 * 0x20 + f4 * 0x10 + f5 * 0x08 + f6 * 0x04 + f7 * 0x02 + f8;
+									printf("0x%X, ", f);
+									if (index == 16) {
+										printf("\n");
+										index = 0;
+									}
+									index++;
+								}
+							}
+						}	
+					}
+				}
+			}
+		}
+	}
+}

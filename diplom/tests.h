@@ -20,3 +20,4 @@ void test_invONB2(size_t m);
 void test_divONB2(size_t m);
 
 void test_reverse();
+void countTableF();
