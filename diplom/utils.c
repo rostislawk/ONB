@@ -77,3 +77,21 @@ size_t size_in_words(size_t number)
 	size_t size_in_words = number / B_PER_W;
 	return rest == 0 ? size_in_words : size_in_words + 1;
 };
+
+unsigned char reverse(unsigned char b)
+{
+   b = (b & 0xF0) >> 4 | (b & 0x0F) << 4;
+   b = (b & 0xCC) >> 2 | (b & 0x33) << 2;
+   b = (b & 0xAA) >> 1 | (b & 0x55) << 1;
+   return b;
+}
+
+word reverseWord(word a)
+{
+	a = (a & 0xFFFF0000) >> 16 | (a & 0x0000FFFF) << 16;
+	a = (a & 0xFF00FF00) >> 8 | (a & 0x00FF00FF) << 8;
+	a = (a & 0xF0F0F0F0) >> 4 | (a & 0x0F0F0F0F) << 4;
+	a = (a & 0xCCCCCCCC) >> 2 | (a & 0x33333333) << 2;
+	a = (a & 0xAAAAAAAA) >> 1 | (a & 0x55555555) << 1;
+	return a;
+}

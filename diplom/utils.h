@@ -14,3 +14,6 @@ void normalize(word *a, size_t n, size_t m);
 
 size_t bits_in_number(size_t number);
 size_t size_in_words(size_t number);
+
+unsigned char reverse(unsigned char b);
+word reverseWord(word a);

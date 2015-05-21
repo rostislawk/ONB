@@ -157,3 +157,9 @@ void test_divONB2(size_t m)
 	free(b);
 	free(res);
 }
+
+void test_reverse()
+{
+	word rev = reverseWord(0x96FAED11);
+	printf("%X", rev);
+}

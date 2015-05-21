@@ -16,3 +16,5 @@ void test_generationONB3_A(size_t m);
 void test_mulONB2(size_t m);
 void test_invONB2(size_t m);
 void test_divONB2(size_t m);
+
+void test_reverse();
