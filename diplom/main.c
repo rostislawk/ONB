@@ -3,10 +3,11 @@
 
 int main()
 {	
+	test_onb_to_standard(5);
 	//test_mul();
 	//test_shift();
 	//countTableF();
-	test_apply_f1();
+	//test_apply_f1();
 	//test_generation_b(5);
 	//test_generation_pi(173);
 	//test_apply_pi();

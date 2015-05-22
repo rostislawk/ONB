@@ -89,6 +89,28 @@ void test_apply_f1()
 	free(b);
 }
 
+void test_onb_to_standard(size_t m)
+{
+	size_t words_in_m = (m / B_PER_W > 1) ? m / B_PER_W : 1;
+	size_t index = 0;
+	word *a = malloc(words_in_m * sizeof(word));
+	word *b = malloc(words_in_m * sizeof(word));
+	word *x = malloc(words_in_m * sizeof(word));
+	word *pi = malloc(m * sizeof(word));
+	for (index = 0; index < words_in_m; ++index) {
+		a[index] = 0x1B;
+	}
+	generate_b(b, m);
+	generate_pi(pi, m);
+	fromONB2ToStandard(a, x, b, pi, m);
+	printBinaryRepresentation2(a, words_in_m, m);
+	printBinaryRepresentation2(x, words_in_m, m);
+	free(a);
+	//free(b);
+	//free(x);
+	//free(pi);
+}
+
 void test_generationONB2_A(size_t m)
 {
 	word *a = (word *)malloc((2 * m - 1) * sizeof(word));
@@ -290,9 +312,10 @@ void test_mul()
 	polyMulMod(c, a, b, mod, 2, stack);
 	//zzMul(c, a, 1, b, 1, NULL);
 	deg = polyDeg(a, 2);
+	c[2] = 0;
 	printBinaryRepresentation2(c, 3, 96);
-	//wordShLo(c, 2, 3);
-	shiftRight(c, 2, 3, 31);
+	wordShHi(c, 3, 3);
+	//shiftRight(c, 2, 3, 31);
 	printBinaryRepresentation2(c, 3, 96);
 	free(a);
 	free(b);
