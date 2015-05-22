@@ -1,22 +1,22 @@
 #include "tests.h"
 #include "onb.h"
 #include "utils.h"
-
-static const size_t test_arr_size = 3;
+#include "math\zz.h"
+#include "math\gf2.h"
+#include "math\poly.h"
 
 void test_shift()
 {
-	size_t field_size = 14;
-	word *a = (word *)malloc(test_arr_size * sizeof(word));
+	word *a = (word *)malloc(3 * sizeof(word));
 	printf("TEST SHIFT\n");
 	a[0] = 15;
 	a[1] = 31;
 	a[2] = 1;
 	//wordSetBit(a,32,TRUE);
-	printBinaryRepresentation2(a, test_arr_size, field_size);
+	printBinaryRepresentation2(a, 3, 3 * B_PER_W);
 	printf("\n");
-	shiftRight(a, test_arr_size, 36, 33);
-	printBinaryRepresentation2(a, test_arr_size, field_size);
+	shiftRight(a, 3, 36, 33);
+	printBinaryRepresentation2(a, 3, 3 * B_PER_W);
 	free(a);
 }
 
@@ -246,14 +246,14 @@ void countTableF()
 						for (x6 = 0; x6 < 2; ++x6) {
 							for (x7 = 0; x7 < 2; ++x7) {
 								for (x8 = 0; x8 < 2; ++x8) {
-									f1 = x1 ^ x3 ^ x5 ^ x7;
-									f2 = x2 ^ x6;
-									f3 = x3 ^ x5;
-									f4 = x4;
-									f5 = x5 ^ x7;
-									f6 = x6;
-									f7 = x7;
-									f8 = x8;
+									f8 = x8 ^ x6 ^ x4 ^ x2;
+									f7 = x7 ^ x3;
+									f6 = x6 ^ x4;
+									f5 = x5;
+									f4 = x4 ^ x2;
+									f3 = x3;
+									f2 = x2;
+									f1 = x1;
 									x = x1 * 0x80 + x2 * 0x40 + x3 * 0x20 + x4 * 0x10 + x5 * 0x08 + x6 * 0x04 + x7 * 0x02 + x8;
 									f = f1 * 0x80 + f2 * 0x40 + f3 * 0x20 + f4 * 0x10 + f5 * 0x08 + f6 * 0x04 + f7 * 0x02 + f8;
 									printf("0x%X, ", f);
@@ -270,4 +270,34 @@ void countTableF()
 			}
 		}
 	}
+}
+
+void test_mul()
+{
+	word *a = malloc(2 * sizeof(word));
+	word *b = malloc(2 * sizeof(word));
+	word *c = malloc(4 * sizeof(word));
+	word *mod = malloc(2 * sizeof(word));
+	size_t deep = polyMulMod_deep(2);
+	word *stack = malloc(sizeof(word) * deep);
+	size_t deg;
+	a[0] = 9;
+	a[1] = 3;
+	b[0] = 2;
+	b[1] = 0;
+	mod[0] = 10;
+	mod[2] = 12;
+	polyMulMod(c, a, b, mod, 2, stack);
+	//zzMul(c, a, 1, b, 1, NULL);
+	deg = polyDeg(a, 2);
+	printBinaryRepresentation2(c, 3, 96);
+	//wordShLo(c, 2, 3);
+	shiftRight(c, 2, 3, 31);
+	printBinaryRepresentation2(c, 3, 96);
+	free(a);
+	free(b);
+	free(c);
+	//free(mod);
+	free(stack);
+	
 }

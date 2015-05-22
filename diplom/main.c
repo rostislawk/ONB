@@ -3,6 +3,8 @@
 
 int main()
 {	
+	//test_mul();
+	//test_shift();
 	//countTableF();
 	test_apply_f1();
 	//test_generation_b(5);

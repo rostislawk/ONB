@@ -28,8 +28,8 @@ void printBinaryRepresentation1(word a, size_t m)
 	if (m > B_PER_W) {
 		m = B_PER_W;
 	}
-	for (index = 0; index < m; ++index) {
-		printf("%u", (a>>index)&1);
+	for (index = m; index > 0; --index) {
+		printf("%u", (a>>(index-1))&1);
 	}
 }
 
@@ -90,9 +90,9 @@ size_t size_in_words(size_t number)
 
 octet reverseOctet(octet a)
 {
-	a = (a & 0xFF00) >> 4 | (a & 0x00FF) << 4;
-	a = (a & 0xCCCC) >> 2 | (a & 0x3333) << 2;
-	a = (a & 0xAAAA) >> 1 | (a & 0x5555) << 1;
+	a = (a & 0xF0) >> 4 | (a & 0x0F) << 4;
+	a = (a & 0xCC) >> 2 | (a & 0x33) << 2;
+	a = (a & 0xAA) >> 1 | (a & 0x55) << 1;
 	return a;
 }
 

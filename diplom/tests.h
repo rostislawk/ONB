@@ -22,3 +22,4 @@ void test_divONB2(size_t m);
 
 void test_reverse();
 void countTableF();
+void test_mul();
