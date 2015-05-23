@@ -3,7 +3,8 @@
 
 int main()
 {	
-	test_onb_to_standard(5);
+	mega_test();
+	//test_onb_to_standard(5);
 	//test_mul();
 	//test_shift();
 	//countTableF();
