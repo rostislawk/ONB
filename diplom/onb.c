@@ -220,20 +220,24 @@ void generateONB3_A(word *a, size_t m)
 void mul(word *res, word *a, word *b, word *A, size_t n, size_t m)
 {
 	size_t step = 0;
+	size_t p = 2 * m - 1;
 	size_t index = 0;
 	size_t apos;
 	size_t bpos;
-	word xi, yj;
+	size_t aposm, bposm;
+	BOOL xi, yj, sum;
 	BOOL bit = FALSE;
 	wordSetZero(res, n);
 	for (step = 0; step < m; ++step) {
 		bit = FALSE;
-		for (index = 0; index < 2 * m - 1; ++index) {
-			apos = ((index + 1) / 2 + step) % m;
-			bpos = (A[index] + step) % m;
-			xi = wordGetBits(a, apos, 1);
-			yj = wordGetBits(b, bpos, 1);
-			bit = (bit ^ (xi & yj)) & 1;
+		for (index = 0; index < p; ++index) {
+			aposm = ((index + 1) >> 1) + step;
+			bposm = A[index] + step;
+			apos = aposm > m ? aposm - m: aposm;
+			bpos = bposm > m ? bposm - m : bposm;
+			xi = wordTestBit(a, apos);
+			yj = wordTestBit(b, bpos); 
+			bit = bit ^ (xi && yj);
 		}
 		wordSetBit(res, step, bit);
 	}
@@ -269,7 +273,7 @@ void div_onb(word *res, word *a, word *b, word *A, size_t n, size_t m)
 void fromONB2ToStandard(word *onb2, word *st, word *b, word *pi, size_t m)
 {
 	size_t ext = (next_power_of_two(m) > B_PER_W) ? next_power_of_two(m) : B_PER_W;
-	word *mem = malloc(ext);
+	word *mem = (word *)malloc(ext);
 	wordSetZero(st, ext / B_PER_W);
 	applyPi(onb2, st, pi, m);
 	applyF(st, mem, ext / B_PER_W);

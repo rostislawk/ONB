@@ -32,3 +32,4 @@ void countTableF();
 void test_mul();
 void test_sqrONB(size_t m);
 void test_sqr(size_t m);
+void test_convertONB(size_t m);

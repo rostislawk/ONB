@@ -63,6 +63,14 @@ void mega_test()
 	for (index = 0; index < onb3_count; ++index) {
 		test_sqr(onb3_sizes[index]);
 	}
+
+	printf("\nTEST convert bases\n");
+	for (index = 0; index < onb2_count; ++index) {
+		test_convertONB(onb2_sizes[index]);
+	}
+	for (index = 0; index < onb3_count; ++index) {
+		test_convertONB(onb3_sizes[index]);
+	}
 }
 
 void test_shift()
@@ -83,7 +91,7 @@ void test_shift()
 void test_generation_b(size_t m)
 {
 	size_t w_size = size_in_words(m), index;
-	word *b = (word *)memAlloc((w_size + 1) * sizeof(word));
+	word *b = (word *)memAlloc(w_size * 2 * sizeof(word));
 	uint64 start, overhead, freq1, freq2;
 	start = RDTSC();
     overhead = RDTSC() - start;
@@ -91,7 +99,7 @@ void test_generation_b(size_t m)
         generate_b(b, m);
 	}
     freq1 = RDTSC() - start - overhead;	
-	printf("Field size m = %u ticks = %u\n", m, freq1/1000);
+	printf("%u, %u\n", m, freq1/1000);
 	//printf("TEST GENERATION B\n");
 	
 	//printBinaryRepresentation2(b, w_size, m + 1);
@@ -189,7 +197,7 @@ void test_generationONB2_A(size_t m)
 		generateONB2_A(a, m);
 	}
     freq1 = RDTSC() - start - overhead;	
-	printf("Field size m = %u ticks = %u\n", m, freq1/1000);
+	printf("%u, %u\n", m, freq1/1000);
 	/*for (index = 0; index < 2 * m - 1; ++index) {
 		printf("%u -> %u\n", (index + 1) / 2, a[index]);
 	}*/
@@ -207,7 +215,7 @@ void test_generationONB3_A(size_t m)
 		generateONB3_A(a, m);
 	}
     freq1 = RDTSC() - start - overhead;	
-	printf("Field size m = %u ticks = %u\n", m, freq1/1000);
+	printf("%u, %u\n", m, freq1/1000);
 	/*for (index = 0; index < 2 * m - 1; ++index) {
 		printf("%u -> %u\n", (index + 1) / 2, a[index]);
 	}*/
@@ -243,7 +251,7 @@ void test_mulONB2(size_t m)
 	}
     freq1 = RDTSC() - start - overhead;	
 	//printBinaryRepresentation2(res, field_size_word_length, m);
-	printf("Field with m = %u ticks = %u\n", m, freq1/1000);
+	printf("%u, %u\n", m, freq1/1000);
 	free(A);
 	free(a);
 	free(b);
@@ -280,7 +288,7 @@ void test_mulONB3(size_t m)
     freq1 = RDTSC() - start - overhead;	
 	//printBinaryRepresentation2(res, field_size_word_length, m);
 	//printf("\n");
-	printf("Field with m = %u ticks = %u\n", m, freq1/1000);
+	printf("%u, %u\n", m, freq1/1000);
 	free(A);
 	free(a);
 	free(b);
@@ -426,7 +434,7 @@ void test_mul(size_t m)
         polyMulMod(c, a, b, mod, field_size_word_length, stack);
 	}
     freq1 = RDTSC() - start - overhead;	
-	printf("Field with m = %u ticks = %u\n", m, freq1/1000);
+	printf("%u, %u\n", m, freq1/1000);
 
 	free(a);
 	free(b);
@@ -453,7 +461,7 @@ void test_sqrONB(size_t m)
         sqr(res, a, field_size_word_length, m);
 	}
     freq1 = RDTSC() - start - overhead;	
-	printf("Field with m = %u ticks = %u\n", m, freq1/1000);
+	printf("%u, %u\n", m, freq1/1000);
 	free(a);
 	free(res);
 }
@@ -480,9 +488,39 @@ void test_sqr(size_t m)
 		polySqrMod(res, a, mod, field_size_word_length, stack);
 	}
     freq1 = RDTSC() - start - overhead;	
-	printf("Field with m = %u ticks = %u\n", m, freq1/1000);
+	printf("%u, %u\n", m, freq1/1000);
 	free(a);
 	free(res);
 	free(mod);
 	free(stack);
+}
+
+void test_convertONB(size_t m)
+{
+	size_t field_size_word_length = size_in_words(m);
+	word *a = (word *)malloc(field_size_word_length * sizeof(word));
+	word *st = (word *)malloc(field_size_word_length * sizeof(word));
+	word *b = (word *)malloc((field_size_word_length + 1) * sizeof(word));
+	word *pi = (word *)malloc(m * sizeof(word));
+	size_t index;
+	uint64 start, overhead, freq1, freq2;
+	wordSetZero(a, field_size_word_length);
+	for (index = 0; index < field_size_word_length; ++index) {
+		a[index] = 1647462394;
+	}
+	generate_b(b, m);
+	generate_pi(pi, m);
+	normalize(a, field_size_word_length, m);
+	start = RDTSC();
+    overhead = RDTSC() - start;
+	for (index = 0; index < 1000; ++index) {
+		fromONB2ToStandard(a, st, b, pi, m);
+	}
+    freq1 = RDTSC() - start - overhead;	
+	printf("%u, %u\n", m, freq1/1000);
+	
+	free(a);
+	free(b);
+	free(st);
+	free(pi);
 }
