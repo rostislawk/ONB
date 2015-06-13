@@ -1,3 +1,5 @@
+#include <time.h>
+#include <stdlib.h>
 #include "tests.h"
 #include "onb.h"
 #include "utils.h"
@@ -172,8 +174,9 @@ void test_onb_to_standard(size_t m)
 	word *b = malloc(words_in_m * sizeof(word));
 	word *x = malloc(words_in_m * sizeof(word));
 	word *pi = malloc(m * sizeof(word));
+	srand(time(0));
 	for (index = 0; index < words_in_m; ++index) {
-		a[index] = 0x1B;
+		a[index] = rand() % WORD_MAX;
 	}
 	generate_b(b, m);
 	generate_pi(pi, m);
@@ -235,8 +238,8 @@ void test_mulONB2(size_t m)
 	wordSetZero(a, field_size_word_length);
 	wordSetZero(b, field_size_word_length);
 	for (index = 0; index < field_size_word_length; ++index) {
-		a[index] = 1647462394;
-		b[index] = 1620632094;
+		a[index] = rand() % WORD_MAX;
+		b[index] = rand() % WORD_MAX;
 	}
 	normalize(a, field_size_word_length, m);
 	//printBinaryRepresentation2(a, field_size_word_length, m);
@@ -271,8 +274,8 @@ void test_mulONB3(size_t m)
 	wordSetZero(a, field_size_word_length);
 	wordSetZero(b, field_size_word_length);
 	for (index = 0; index < field_size_word_length; ++index) {
-		a[index] = 1647462394;
-		b[index] = 1620632094;
+		a[index] = rand() % WORD_MAX;
+		b[index] = rand() % WORD_MAX;
 	}
 	normalize(a, field_size_word_length, m);
 	//printBinaryRepresentation2(a, field_size_word_length, m);
@@ -422,8 +425,8 @@ void test_mul(size_t m)
 	wordSetZero(b, field_size_word_length);
 	generate_b(mod, m);
 	for (index = 0; index < field_size_word_length; ++index) {
-		a[index] = 1647462394;
-		b[index] = 1620632094;
+		a[index] = rand() % WORD_MAX;
+		b[index] = rand() % WORD_MAX;
 	}
 	normalize(a, field_size_word_length, m);
 	normalize(b, field_size_word_length, m);
@@ -452,7 +455,7 @@ void test_sqrONB(size_t m)
 	uint64 start, overhead, freq1, freq2;
 	wordSetZero(a, field_size_word_length);
 	for (index = 0; index < field_size_word_length; ++index) {
-		a[index] = 1647462394;
+		a[index] = rand() % WORD_MAX;
 	}
 	normalize(a, field_size_word_length, m);
 	start = RDTSC();
@@ -478,7 +481,7 @@ void test_sqr(size_t m)
 	uint64 start, overhead, freq1, freq2;
 	wordSetZero(a, field_size_word_length);
 	for (index = 0; index < field_size_word_length; ++index) {
-		a[index] = 1647462394;
+		a[index] = rand() % WORD_MAX;
 	}
 	generate_b(mod, m);
 	normalize(a, field_size_word_length, m);
@@ -506,7 +509,7 @@ void test_convertONB(size_t m)
 	uint64 start, overhead, freq1, freq2;
 	wordSetZero(a, field_size_word_length);
 	for (index = 0; index < field_size_word_length; ++index) {
-		a[index] = 1647462394;
+		a[index] = rand() % WORD_MAX;
 	}
 	generate_b(b, m);
 	generate_pi(pi, m);

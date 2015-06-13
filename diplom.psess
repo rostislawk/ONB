@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<VSPerformanceSession Version="1.00">
+  <Options>
+    <Solution>E:\5 курс\ДИПЛОМ\program\diplom\diplom.sln</Solution>
+    <CollectionMethod>Sampling</CollectionMethod>
+    <AllocationMethod>None</AllocationMethod>
+    <LaunchRuntimeControl>true</LaunchRuntimeControl>
+    <AddReport>true</AddReport>
+    <ResourceBasedAnalysisSelected>false</ResourceBasedAnalysisSelected>
+    <ThreadBasedAnalysisSelected>false</ThreadBasedAnalysisSelected>
+    <UniqueReport>Timestamp</UniqueReport>
+    <SamplingMethod>Cycles</SamplingMethod>
+    <CycleCount>10000000</CycleCount>
+    <PageFaultCount>10</PageFaultCount>
+    <SysCallCount>10</SysCallCount>
+    <SamplingCounter Name="" ReloadValue="00000000000f4240" DisplayName="" />
+    <RelocateBinaries>false</RelocateBinaries>
+    <CollectOnHpcCluster>false</CollectOnHpcCluster>
+    <HPCSettings>
+      <NumberOfProcesses>0</NumberOfProcesses>
+      <TargetSelection>UnknownDisabled</TargetSelection>
+      <ProfileOnRank>0</ProfileOnRank>
+      <AdvancedProperties>
+        <Project>diplom</Project>
+        <CleanUp>true</CleanUp>
+        <MpiexecCommand>mpiexec.exe</MpiexecCommand>
+        <DeployCRT>true</DeployCRT>
+      </AdvancedProperties>
+    </HPCSettings>
+    <HardwareCounters EnableHWCounters="false" />
+    <EtwSettings />
+    <PdhSettings>
+      <PdhCountersEnabled>false</PdhCountersEnabled>
+      <PdhCountersRate>500</PdhCountersRate>
+      <PdhCounters>
+        <PdhCounter>\Память\Обмен страниц/с</PdhCounter>
+        <PdhCounter>\Процессор(_Total)\% загруженности процессора</PdhCounter>
+        <PdhCounter>\Физический диск(_Total)\Средняя длина очереди диска</PdhCounter>
+      </PdhCounters>
+    </PdhSettings>
+  </Options>
+  <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+  <JScriptProfilingEnabled>false</JScriptProfilingEnabled>
+  <PreinstrumentEvent>
+    <InstrEventExclude>false</InstrEventExclude>
+  </PreinstrumentEvent>
+  <PostinstrumentEvent>
+    <InstrEventExclude>false</InstrEventExclude>
+  </PostinstrumentEvent>
+  <Binaries>
+    <ProjBinary>
+      <Path>E:\5 курс\ДИПЛОМ\program\diplom\distrib\Release\diplom.exe</Path>
+      <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
+      <Instrument>true</Instrument>
+      <Sample>true</Sample>
+      <ExternalWebsite>false</ExternalWebsite>
+      <InteractionProfilingEnabled>false</InteractionProfilingEnabled>
+      <IsLocalJavascript>false</IsLocalJavascript>
+      <LaunchProject>true</LaunchProject>
+      <OverrideProjectSettings>false</OverrideProjectSettings>
+      <LaunchMethod>Executable</LaunchMethod>
+      <ExecutablePath>E:\5 курс\ДИПЛОМ\program\diplom\distrib\Release\diplom.exe</ExecutablePath>
+      <StartupDirectory>E:\5 курс\ДИПЛОМ\program\diplom\diplom\</StartupDirectory>
+      <Arguments />
+      <NetAppHost>IIS</NetAppHost>
+      <NetBrowser>InternetExplorer</NetBrowser>
+      <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+      <JScriptProfilingEnabled>false</JScriptProfilingEnabled>
+      <PreinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PreinstrumentEvent>
+      <PostinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PostinstrumentEvent>
+      <ProjRef>{7B508C6E-81EE-448D-87A6-72CC0B18F176}|diplom\diplom.vcxproj</ProjRef>
+      <ProjPath>E:\5 курс\ДИПЛОМ\program\diplom\diplom\diplom.vcxproj</ProjPath>
+      <ProjName>diplom</ProjName>
+    </ProjBinary>
+  </Binaries>
+  <Launches>
+    <ProjBinary>
+      <Path>:PB:{7B508C6E-81EE-448D-87A6-72CC0B18F176}|diplom\diplom.vcxproj</Path>
+    </ProjBinary>
+  </Launches>
+  <RuntimeMarks>
+    <MarkName>Метка 1</MarkName>
+    <MarkName>Метка 2</MarkName>
+    <MarkName>Метка 3</MarkName>
+    <MarkName>Метка 4</MarkName>
+    <MarkName>Метка 5</MarkName>
+    <MarkName>Метка 6</MarkName>
+    <MarkName>Метка 7</MarkName>
+    <MarkName>Метка 8</MarkName>
+    <MarkName>Метка 9</MarkName>
+    <MarkName>Метка 10</MarkName>
+  </RuntimeMarks>
+</VSPerformanceSession>
